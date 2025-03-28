@@ -9,7 +9,7 @@ import re
 BUFFER_SIZE = 1000000
 
 # Get the IP address and Port number to use for this web proxy server
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser() 
 parser.add_argument('hostname', help='the IP Address Of Proxy Server')
 parser.add_argument('port', help='the port number of the proxy server')
 args = parser.parse_args()
