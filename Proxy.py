@@ -85,7 +85,7 @@ while True:
   message_bytes = clientSocket.recv(BUFFER_SIZE)
 
   # ~~~~ END CODE INSERT ~~~~
-  message = message_bytes.decode('utf-8')
+  message = message_bytes.decode('utf-8')   # decode the message from bytes into a string format
   print ('Received request:')
   print ('< ' + message)
 
@@ -206,7 +206,20 @@ while True:
 
       # Get the response from the origin server
       # ~~~~ INSERT CODE ~~~~
+
+      # Store the raw data in bytes from the origin server in the response variable.
+      response = b""
+      # Use a loop to receive data in chunks (up to the BUFFER_SIZE each)
+      # until the server closes the connection (data is empty).
+      while True:
+          chunk = originServerSocket.recv(BUFFER_SIZE)
+          if not chunk:
+            break
+          else:
+              response += chunk
+
       # ~~~~ END CODE INSERT ~~~~
+
 
       # Send the response to the client
       # ~~~~ INSERT CODE ~~~~
