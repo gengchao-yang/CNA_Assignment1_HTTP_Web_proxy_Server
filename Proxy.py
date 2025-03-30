@@ -37,7 +37,7 @@ try:
 
   # Bind the server socket to the specified host and port.
 
-  proxyAddress = (proxyHost, proxyPort)
+  proxyAddress = (proxyHost, proxyPort)   # saved as a tuple, since bind() requires a tuple as input argument.
   serverSocket.bind(proxyAddress)
 
   # ~~~~ END CODE INSERT ~~~~
@@ -49,6 +49,9 @@ except:
 try:
   # Listen on the server socket
   # ~~~~ INSERT CODE ~~~~
+
+  serverSocket.listen(1)
+
   # ~~~~ END CODE INSERT ~~~~
   print ('Listening to socket')
 except:
