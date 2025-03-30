@@ -141,11 +141,13 @@ while True:
     # Use join() to combine the cache data into one single string
     # use encode)() function converts the string to byte format before sending it out
     clientSocket.sendall(''.join(cacheData).encode('utf-8'))
+    cacheData = '  '.join(cacheData) # fix: Join cacheData into a single String with 2 spaces as seperator
+
 
     # ~~~~ END CODE INSERT ~~~~
     cacheFile.close()
     print ('Sent to the client:')
-    print ('> ' + '  '.join(cacheData)) # fix: Join cacheData into a single String with 2 spaces as seperator
+    print ('> ' + cacheData)
   except:
     # cache miss.  Get resource from origin server
     originServerSocket = None
