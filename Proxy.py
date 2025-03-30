@@ -137,6 +137,11 @@ while True:
     # ProxyServer finds a cache hit
     # Send back response to client 
     # ~~~~ INSERT CODE ~~~~
+    
+    # Use join() to combine the cache data into one single string
+    # use encode)() function converts the string to byte format before sending it out
+    clientSocket.sendall(''.join(cacheData).encode('utf-8'))
+
     # ~~~~ END CODE INSERT ~~~~
     cacheFile.close()
     print ('Sent to the client:')
