@@ -171,6 +171,8 @@ while True:
       # ~~~~ END CODE INSERT ~~~~
       print ('Connected to origin Server')
 
+
+
       originServerRequest = ''
       originServerRequestHeader = ''
       # Create origin server request line and headers to send
@@ -178,6 +180,12 @@ while True:
       # originServerRequest is the first line in the request and
       # originServerRequestHeader is the second line in the request
       # ~~~~ INSERT CODE ~~~~
+
+      # Add the the first line of the HTTP request
+      originServerRequest = f"{method} {resource} {version}"
+      # Add the second line of the HTTP/1.1 request
+      originServerRequestHeader = f"Host: {hostname}"
+
       # ~~~~ END CODE INSERT ~~~~
 
       # Construct the request to send to the origin server
