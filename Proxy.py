@@ -164,6 +164,10 @@ while True:
       address = socket.gethostbyname(hostname)
       # Connect to the origin server
       # ~~~~ INSERT CODE ~~~~
+
+      # Using connect() to connect to the origin server on the default HTTP port 80.
+      originServerSocket.connect((address, 80))
+
       # ~~~~ END CODE INSERT ~~~~
       print ('Connected to origin Server')
 
