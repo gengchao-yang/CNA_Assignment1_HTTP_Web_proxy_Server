@@ -51,6 +51,7 @@ try:
   # ~~~~ INSERT CODE ~~~~
 
   # Start listening for incoming requests.
+  # Set server socket to listen with a backlog of 1 connections for troubleshooting.
   serverSocket.listen(1) 
 
   # ~~~~ END CODE INSERT ~~~~
@@ -67,6 +68,9 @@ while True:
   # Accept connection from client and store in the clientSocket
   try:
     # ~~~~ INSERT CODE ~~~~
+
+    clientSocket, clientAddress = serverSocket.accept()
+
     # ~~~~ END CODE INSERT ~~~~
     print ('Received a connection')
   except:
