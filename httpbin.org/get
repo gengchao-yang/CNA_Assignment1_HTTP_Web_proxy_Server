@@ -1,0 +1,18 @@
+HTTP/1.1 200 OK
+Date: Sun, 30 Mar 2025 12:17:53 GMT
+Content-Type: application/json
+Content-Length: 199
+Connection: keep-alive
+Server: gunicorn/19.9.0
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: true
+
+{
+  "args": {}, 
+  "headers": {
+    "Host": "httpbin.org", 
+    "X-Amzn-Trace-Id": "Root=1-67e93671-7d893aa30b2309064cfbab5f"
+  }, 
+  "origin": "129.127.202.37", 
+  "url": "http://httpbin.org/get"
+}
