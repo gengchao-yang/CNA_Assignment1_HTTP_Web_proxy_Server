@@ -35,8 +35,10 @@ try:
   # Bind the server socket to a host and port
   # ~~~~ INSERT CODE ~~~~
 
-  # Bind the server socket to the specified host and port
-  serverSocket.bind(proxyHost, proxyPort)
+  # Bind the server socket to the specified host and port.
+
+  proxyAddress = (proxyHost, proxyPort)
+  serverSocket.bind(proxyAddress)
 
   # ~~~~ END CODE INSERT ~~~~
   print ('Port is bound')
