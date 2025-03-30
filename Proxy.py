@@ -50,7 +50,8 @@ try:
   # Listen on the server socket
   # ~~~~ INSERT CODE ~~~~
 
-  serverSocket.listen(1)
+  # Start listening for incoming requests.
+  serverSocket.listen(1) 
 
   # ~~~~ END CODE INSERT ~~~~
   print ('Listening to socket')
