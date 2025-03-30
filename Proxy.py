@@ -145,7 +145,7 @@ while True:
     # ~~~~ END CODE INSERT ~~~~
     cacheFile.close()
     print ('Sent to the client:')
-    print ('> ' + ' '.join(cacheData)) # fix: Join cacheData into a single String with a space as seperator
+    print ('> ' + '  '.join(cacheData)) # fix: Join cacheData into a single String with 2 spaces as seperator
   except:
     # cache miss.  Get resource from origin server
     originServerSocket = None
