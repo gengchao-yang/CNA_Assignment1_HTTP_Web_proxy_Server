@@ -209,23 +209,28 @@ while True:
       # Get the response from the origin server
       # ~~~~ INSERT CODE ~~~~
 
+      # Fix: Set timeout to 3 seconds to avoid hanging
+      originServerSocket.settimeout(3.0)
+
       # Store the raw data in bytes from the origin server in the response variable.
       response = b""
       # Use a loop to receive data in chunks (up to the BUFFER_SIZE each)
       # until the server closes the connection (data is empty).
-      print("1 Loop to recv data from origin server") # testing, to delete this line
+
       while True:
-          print("1.1 Loop to recv data from origin server") # testing, to delete this line
-          chunk = originServerSocket.recv(BUFFER_SIZE)
-          print("1.2 Loop to recv data from origin server") # testing, to delete this line
-          if not chunk:
-            print("1.3 Loop to recv data from origin server") # testing, to delete this line
+        try: 
+            chunk = originServerSocket.recv(BUFFER_SIZE)
+        except socket.timeout:
+          # 3 seconds timeout reached, no response from origin server
+          print("Timeout: No data received for 3 seconds, assuming response complete")
+          break
+
+        if not chunk:
+            # No more data to receive, break the loop
+            print("Server closed connection")
             break
-          else:
-              print("1.4 Loop to recv data from origin server") # testing, to delete this line
-              response += chunk
-              print("1.5 Loop to recv data from origin server") # testing, to delete this line
-      print("2 Loop to recv data from origin server") # testing, to delete this line
+          
+        response += chunk
       # ~~~~ END CODE INSERT ~~~~
 
 
