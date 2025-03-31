@@ -51,8 +51,8 @@ try:
   # ~~~~ INSERT CODE ~~~~
 
   # Start listening for incoming requests.
-  # Set server socket to listen with a backlog of 1 connections for troubleshooting.
-  serverSocket.listen(1) 
+  # Set server socket to listen with a backlog of 5 connections.
+  serverSocket.listen(5) 
 
   # ~~~~ END CODE INSERT ~~~~
   print ('Listening to socket')
@@ -213,7 +213,7 @@ while True:
       originServerSocket.settimeout(3.0)
 
       # Store the raw data in bytes from the origin server in the response variable.
-      response = b""
+      originResponse = b""
       # Use a loop to receive data in chunks (up to the BUFFER_SIZE each)
       # until the server closes the connection (data is empty).
 
@@ -230,7 +230,7 @@ while True:
             print("Server closed connection")
             break
           
-        response += chunk
+        originResponse += chunk
       # ~~~~ END CODE INSERT ~~~~
 
 
@@ -239,7 +239,24 @@ while True:
       # ~~~~ INSERT CODE ~~~~
 
       # Using sendall() to Send the full response (bytes) to the client.
-      clientSocket.sendall(response)
+
+
+      clientSocket.sendall(originResponse)
+
+      # Parse response headers to determine caching behavior
+      response_str = originResponse.decode('utf-8', errors='ignore')
+      headers = response_str.split('\r\n\r\n', 1)[0].split('\r\n')
+      status_line = headers[0]
+      status_code = status_line.split()[1] if len(status_line.split()) > 1 else '200'
+      cache_control = next((h for h in headers if h.lower().startswith('cache-control:')), None)
+      should_cache = True
+
+      if status_code in ['301', '302']:
+        should_cache = False  # Do not cache redirects
+      elif cache_control:
+        max_age_match = re.search(r'max-age=(\d+)', cache_control, re.IGNORECASE)
+        if max_age_match and int(max_age_match.group(1)) == 0:
+          should_cache = False  # Do not cache if max-age=0
 
       # ~~~~ END CODE INSERT ~~~~
 
@@ -253,8 +270,9 @@ while True:
       # Save origin server response in the cache file
       # ~~~~ INSERT CODE ~~~~
 
-      # Write the response bytes to the cache file.
-      cacheFile.write(response)
+      # Write the response bytes to the cache file only if caching is allowed
+      if should_cache:
+        cacheFile.write(originResponse)
 
       # ~~~~ END CODE INSERT ~~~~
       cacheFile.close()
