@@ -213,13 +213,19 @@ while True:
       response = b""
       # Use a loop to receive data in chunks (up to the BUFFER_SIZE each)
       # until the server closes the connection (data is empty).
+      print("1 Loop to recv data from origin server") # testing, to delete this line
       while True:
+          print("1.1 Loop to recv data from origin server") # testing, to delete this line
           chunk = originServerSocket.recv(BUFFER_SIZE)
+          print("1.2 Loop to recv data from origin server") # testing, to delete this line
           if not chunk:
+            print("1.3 Loop to recv data from origin server") # testing, to delete this line
             break
           else:
+              print("1.4 Loop to recv data from origin server") # testing, to delete this line
               response += chunk
-
+              print("1.5 Loop to recv data from origin server") # testing, to delete this line
+      print("2 Loop to recv data from origin server") # testing, to delete this line
       # ~~~~ END CODE INSERT ~~~~
 
 
